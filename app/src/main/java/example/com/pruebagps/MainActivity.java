@@ -116,13 +116,6 @@ public class MainActivity extends AppCompatActivity {
                                                 mensaje += "STATUS_UBICACION : NULA________\n";
                                                 latitud = 0.0;
                                                 longitud = 0.0;
-                                                if (isMockLocation(location)) {
-                                                    Log.d("MOCK", "LA UBICACION ES FALSA______");
-                                                    mensaje += "MOCK : LA UBICACION ES FALSA________\n";
-                                                } else {
-                                                    Log.d("MOCK", "LA UBICACION ES VERDADERA________");
-                                                    mensaje += "MOCK : LA UBICACION ES VERDADERA________\n";
-                                                }
                                                 Log.d("COORDENADAS",String.valueOf(latitud)+"|"+String.valueOf(longitud));
                                                 mensaje += "COORDENADAS : "+String.valueOf(latitud)+"|"+String.valueOf(longitud)+"________\n";
                                                 LocationRequest request = new LocationRequest();
@@ -136,22 +129,22 @@ public class MainActivity extends AppCompatActivity {
                                                             return;
                                                         }
                                                         for (Location location : locationResult.getLocations()) {
-                                                            latitud = location.getLatitude();
-                                                            longitud = location.getLongitude();
-                                                            if (isMockLocation(location)) {
-                                                                Log.d("MOCK", "LA UBICACION ES FALSA______");
-                                                                mensaje += "MOCK : LA UBICACION ES FALSA________\n";
-                                                            } else {
-                                                                Log.d("MOCK", "LA UBICACION ES VERDADERA________");
-                                                                mensaje += "MOCK : LA UBICACION ES VERDADERA________\n";
-                                                            }
                                                             if(location != null){
+                                                                latitud = location.getLatitude();
+                                                                longitud = location.getLongitude();
                                                                 fusedLocationProviderClient.removeLocationUpdates(this);
+                                                                Log.d("SEGUNDA LLAMADA", String.valueOf(latitud)+"|"+String.valueOf(longitud));
+                                                                mensaje += "SEGUNDA LLAMADA COORDENADAS : "+String.valueOf(latitud)+"|"+String.valueOf(longitud)+"________\n";
+                                                                if (isMockLocation(location)) {
+                                                                    Log.d("MOCK", "LA UBICACION ES FALSA______");
+                                                                    mensaje += "MOCK : LA UBICACION ES FALSA________\n";
+                                                                } else {
+                                                                    Log.d("MOCK", "LA UBICACION ES VERDADERA________");
+                                                                    mensaje += "MOCK : LA UBICACION ES VERDADERA________\n";
+                                                                }
+                                                                tv.setText(mensaje);
                                                             }
                                                         }
-                                                        Log.d("SEGUNDA LLAMADA", String.valueOf(latitud)+"|"+String.valueOf(longitud));
-                                                        mensaje += "SEGUNDA LLAMADA COORDENADAS : "+String.valueOf(latitud)+"|"+String.valueOf(longitud)+"________\n";
-                                                        tv.setText(mensaje);
                                                     }
                                                 };
                                                 if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
